@@ -39,12 +39,7 @@ class Result(Student):
         return self.publish()
 
     def change_marks(self, new_marks, subject):
-        if subject == "subject1":
-            self.subject1 = new_marks
-        elif subject == "subject2":
-            self.subject2 = new_marks
-        elif subject == "subject3":
-            self.subject3 = new_marks
+        setattr(self, subject, new_marks)
         line1 = f"{self.name} has ordered a recheck in {subject}"
         new_result = self.calculate_result()
         return f"{line1}\nFollowing is the new result: {new_result}"
@@ -66,7 +61,7 @@ if __name__ == '__main__':
     r4 = Result(marks[3][0], marks[3][1], marks[3][2], names[3], cla[3])
     r5 = Result(marks[4][0], marks[4][1], marks[4][2], names[4], cla[4])
 
-    sub = input()
+    sub = input().strip()
     new_marks = int(input())
 
     print(r1.calculate_result())
