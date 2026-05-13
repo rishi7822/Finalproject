@@ -1,6 +1,3 @@
-import sys
-
-
 class Student:
     def __init__(self, name, sClass):
         self.name = name
@@ -45,45 +42,30 @@ class Result(Student):
 
 
 if __name__ == '__main__':
-    data = sys.stdin.read().split('\n')
-    idx = 0
+    names = input().split()
+    marks = []
 
-    names = data[idx].split()
-    n = len(names)
-    idx += 1
+    for i in range(len(names)):
+        temp = list(map(int, input().split()))
+        marks.append(temp)
 
-    marks_data = []
-    for i in range(n):
-        marks_data.append(list(map(int, data[idx].split())))
-        idx += 1
+    cla = list(map(int, input().split()))
 
-    classes = list(map(int, data[idx].split()))
-    idx += 1
+    r1 = Result(marks[0][0], marks[0][1], marks[0][2], names[0], cla[0])
+    r2 = Result(marks[1][0], marks[1][1], marks[1][2], names[1], cla[1])
+    r3 = Result(marks[2][0], marks[2][1], marks[2][2], names[2], cla[2])
+    r4 = Result(marks[3][0], marks[3][1], marks[3][2], names[3], cla[3])
+    r5 = Result(marks[4][0], marks[4][1], marks[4][2], names[4], cla[4])
 
-    students = []
-    for i in range(n):
-        s = Result(marks_data[i][0], marks_data[i][1], marks_data[i][2], names[i], classes[i])
-        students.append(s)
+    sub = input()
+    new_marks = int(input())
 
-    for s in students:
-        print(s.calculate_result())
+    print(r1.calculate_result())
+    print(r2.calculate_result())
+    print(r3.calculate_result())
+    print(r4.calculate_result())
+    print(r5.calculate_result())
 
-    name_set = {s.name: s for s in students}
-
-    while idx < len(data):
-        line = data[idx].strip()
-        if not line:
-            idx += 1
-            continue
-
-        if line in name_set:
-            name = line
-            subject = data[idx + 1].strip()
-            new_marks = int(data[idx + 2].strip())
-            print(name_set[name].change_marks(new_marks, subject))
-            idx += 3
-        else:
-            subject = line
-            new_marks = int(data[idx + 1].strip())
-            print(students[0].change_marks(new_marks, subject))
-            idx += 2
+    print(r1.change_marks(new_marks, sub))
+    print(r3.change_marks(new_marks, sub))
+    print(r5.change_marks(new_marks, sub))
