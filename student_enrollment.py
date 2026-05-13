@@ -1,3 +1,12 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+
 class Student:
     def __init__(self, name, sClass):
         self.name = name
