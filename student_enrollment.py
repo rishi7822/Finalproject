@@ -1,3 +1,6 @@
+import sys
+
+
 class Student:
     def __init__(self, name, sClass):
         self.name = name
@@ -39,3 +42,48 @@ class Result(Student):
         line1 = f"{self.name} has ordered a recheck in {subject}"
         new_result = self.calculate_result()
         return f"{line1}\nFollowing is the new result: {new_result}"
+
+
+if __name__ == '__main__':
+    data = sys.stdin.read().split('\n')
+    idx = 0
+
+    names = data[idx].split()
+    n = len(names)
+    idx += 1
+
+    marks_data = []
+    for i in range(n):
+        marks_data.append(list(map(int, data[idx].split())))
+        idx += 1
+
+    classes = list(map(int, data[idx].split()))
+    idx += 1
+
+    students = []
+    for i in range(n):
+        s = Result(marks_data[i][0], marks_data[i][1], marks_data[i][2], names[i], classes[i])
+        students.append(s)
+
+    for s in students:
+        print(s.calculate_result())
+
+    name_set = {s.name: s for s in students}
+
+    while idx < len(data):
+        line = data[idx].strip()
+        if not line:
+            idx += 1
+            continue
+
+        if line in name_set:
+            name = line
+            subject = data[idx + 1].strip()
+            new_marks = int(data[idx + 2].strip())
+            print(name_set[name].change_marks(new_marks, subject))
+            idx += 3
+        else:
+            subject = line
+            new_marks = int(data[idx + 1].strip())
+            print(students[0].change_marks(new_marks, subject))
+            idx += 2
